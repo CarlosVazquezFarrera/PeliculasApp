@@ -11,7 +11,7 @@ class CardSwiper extends StatelessWidget {
       padding: const EdgeInsets.only(top: 26),
       child: SizedBox(
         width: double.infinity,
-        height: height * 0.6,
+        height: height * 0.55,
         child: Swiper(
           loop: false,
           itemCount: 10,
@@ -19,7 +19,7 @@ class CardSwiper extends StatelessWidget {
           scale: 0.9,
           itemBuilder: (_, index) {
             return GestureDetector(
-              onTap: () => {print("ghola")},
+              onTap: () => {},
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: const FadeInImage(
