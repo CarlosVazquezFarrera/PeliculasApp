@@ -5,7 +5,8 @@ import 'package:peliculas/screens/screens.dart';
 
 class AppRoutes {
   static final _menuOptions = <MenuOptions>[
-    MenuOptions(route: RoutersScreen.home, screen: const HomeScreen())
+    MenuOptions(route: RoutersScreen.home, screen: const HomeScreen()),
+    MenuOptions(route: RoutersScreen.details, screen: const DetailsScreen())
   ];
 
   /// Create our routes and bindinthem to screens

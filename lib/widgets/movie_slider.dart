@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/routes/routes_screens.dart';
 
 class MovieSlider extends StatelessWidget {
   const MovieSlider({Key? key}) : super(key: key);
@@ -38,7 +39,10 @@ class _Movie extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       child: Column(children: [
         GestureDetector(
-          onTap: () => {},
+          onTap: () => {
+            Navigator.pushNamed(context, RoutersScreen.details,
+                arguments: 'Hola')
+          },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: const FadeInImage(
