@@ -9,7 +9,8 @@ class ProviderService {
   static List<ChangeNotifierProvider<ChangeNotifier>> getProviders(
       BuildContext context) {
     return _providers
-        .map((p) => ChangeNotifierProvider(create: (BuildContext context) => p))
+        .map((p) => ChangeNotifierProvider(
+            create: (BuildContext context) => p, lazy: false))
         .toList();
   }
 }
