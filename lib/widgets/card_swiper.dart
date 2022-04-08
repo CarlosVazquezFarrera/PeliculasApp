@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:peliculas/models/movie.dart';
 
 class CardSwiper extends StatelessWidget {
-  const CardSwiper({Key? key}) : super(key: key);
+  const CardSwiper({Key? key, required this.movies}) : super(key: key);
+
+  final List<Movie> movies;
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: const EdgeInsets.only(top: 26),
+    return Container(
+      margin: const EdgeInsets.only(top: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
         width: double.infinity,
-        height: height * 0.55,
+        height: height * 0.6,
         child: Swiper(
           loop: false,
-          itemCount: 10,
+          itemCount: movies.length,
           viewportFraction: 0.8,
           scale: 0.9,
           itemBuilder: (_, index) {
@@ -22,10 +26,10 @@ class CardSwiper extends StatelessWidget {
               onTap: () => {},
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: const FadeInImage(
-                  fit: BoxFit.fill,
-                  placeholder: AssetImage('assets/loading.gif'),
-                  image: NetworkImage('https://via.placeholder.com/300x400'),
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  placeholder: const AssetImage('assets/loading.gif'),
+                  image: NetworkImage(movies[index].obtenerPortada),
                 ),
               ),
             );

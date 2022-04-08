@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/providers/provider_service.dart';
 import 'package:peliculas/routes/app_routes.dart';
 import 'package:peliculas/routes/routes_screens.dart';
 import 'package:peliculas/theme/app_theme.dart';
 import 'package:provider/provider.dart';
-
-import 'providers/provider_service.dart';
 
 void main() => runApp(const AppState());
 
