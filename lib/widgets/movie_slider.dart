@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/models/movie.dart';
 import 'package:peliculas/routes/routes_screens.dart';
 
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({Key? key}) : super(key: key);
+  const MovieSlider({Key? key, required this.movies, required this.titulo})
+      : super(key: key);
+
+  final List<Movie> movies;
+  final String titulo;
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +18,17 @@ class MovieSlider extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 8, top: 8),
-            child: Text('Populares'),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, top: 8),
+            child: Text(titulo,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           ),
           Expanded(
             child: ListView.builder(
-                itemCount: 15,
+                itemCount: movies.length,
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) => const _Movie()),
+                itemBuilder: (_, index) => _Movie(movie: movies[index])),
           )
         ],
       ),
@@ -30,12 +37,13 @@ class MovieSlider extends StatelessWidget {
 }
 
 class _Movie extends StatelessWidget {
-  const _Movie({Key? key}) : super(key: key);
+  const _Movie({Key? key, required this.movie}) : super(key: key);
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 90,
+      width: 80,
       margin: const EdgeInsets.all(10),
       child: Column(children: [
         GestureDetector(
@@ -45,13 +53,16 @@ class _Movie extends StatelessWidget {
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: const FadeInImage(
-                placeholder: AssetImage('assets/loading.gif'),
-                image: NetworkImage('https://via.placeholder.com/300x400')),
+            child: FadeInImage(
+                width: 70,
+                height: 110,
+                fit: BoxFit.cover,
+                placeholder: const AssetImage('assets/loading.gif'),
+                image: NetworkImage(movie.obtenerPortada)),
           ),
         ),
-        const Text(
-          'Elit est eu enim voluptate ad Lorem minim ',
+        Text(
+          movie.title,
           maxLines: 2,
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,

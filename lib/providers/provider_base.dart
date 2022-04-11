@@ -4,9 +4,9 @@ import 'package:peliculas/providers/provider_interceptor.dart';
 
 class ProviderBase extends ChangeNotifier {
   ProviderBase(String path) {
-    urlBase = Uri(scheme: 'https', host: 'api.themoviedb.org', path: path);
+    urlBase = 'https://api.themoviedb.org/3/$path';
   }
-  Uri urlBase = Uri();
+  String urlBase = '';
   InterceptedClient client =
       InterceptedClient.build(interceptors: [ProviderInterceptor()]);
 }
