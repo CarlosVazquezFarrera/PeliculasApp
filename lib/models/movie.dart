@@ -68,9 +68,15 @@ class Movie {
         "vote_average": voteAverage,
         "vote_count": voteCount,
       };
-  String get obtenerPortada {
+  String get fullposterPath {
     return posterPath != null
         ? 'https://image.tmdb.org/t/p/w500/$posterPath'
+        : 'https://www.servicioaltoque.online/uploads/services/foo.jpg';
+  }
+
+  String get fullBackdropPath {
+    return posterPath != null
+        ? 'https://image.tmdb.org/t/p/w500/$backdropPath'
         : 'https://www.servicioaltoque.online/uploads/services/foo.jpg';
   }
 }

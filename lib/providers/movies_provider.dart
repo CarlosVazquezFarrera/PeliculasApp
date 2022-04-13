@@ -10,6 +10,7 @@ class MoviesProvider extends ProviderBase {
 
   List<Movie> movies = [];
   List<Movie> moviesPopulares = [];
+  int _tendenciaPage = 0;
 
   ///Retorna toda la información sobre las peliculas en cartelera
   obtenerPeliculas() async {
@@ -25,14 +26,14 @@ class MoviesProvider extends ProviderBase {
 
   ///Retorna toda la información sobre las peliculas en populares del nomento
   obtenerPeliculasEnTendencia() async {
+    _tendenciaPage++;
     // Uri.parse
     final Response popularesReponse = await client.get(
         Uri.parse('${urlBase}popular'),
-        params: {'language': 'es-ES', 'page': '1'});
+        params: {'language': 'es-ES', 'page': _tendenciaPage});
     final PopularResponse peliculasResponse =
         PopularResponse.fromJson(popularesReponse.body);
     moviesPopulares = [...moviesPopulares, ...peliculasResponse.results];
-    print(moviesPopulares);
     notifyListeners();
   }
 }

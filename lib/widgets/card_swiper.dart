@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:peliculas/models/movie.dart';
 
+import '../routes/routes_screens.dart';
+
 class CardSwiper extends StatelessWidget {
   const CardSwiper({Key? key, required this.movies}) : super(key: key);
 
@@ -33,13 +35,16 @@ class CardSwiper extends StatelessWidget {
           scale: 0.9,
           itemBuilder: (_, index) {
             return GestureDetector(
-              onTap: () => {},
+              onTap: () => {
+                Navigator.pushNamed(context, RoutersScreen.details,
+                    arguments: movies[index])
+              },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(
                   fit: BoxFit.cover,
                   placeholder: const AssetImage('assets/loading.gif'),
-                  image: NetworkImage(movies[index].obtenerPortada),
+                  image: NetworkImage(movies[index].fullposterPath),
                 ),
               ),
             );
