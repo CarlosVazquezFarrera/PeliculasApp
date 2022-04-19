@@ -6,6 +6,8 @@ class ProviderBase extends ChangeNotifier {
   ProviderBase(String path) {
     urlBase = 'https://api.themoviedb.org/3/$path';
   }
+  final Map<String, dynamic> baseParams = {'language': 'es-ES'};
+
   String urlBase = '';
   InterceptedClient client =
       InterceptedClient.build(interceptors: [ProviderInterceptor()]);

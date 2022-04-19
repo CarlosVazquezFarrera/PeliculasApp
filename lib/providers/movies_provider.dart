@@ -12,14 +12,13 @@ class MoviesProvider extends ProviderBase {
   List<Movie> moviesPopulares = [];
   int _tendenciaPage = 0;
   final Map<int, List<Cast>> _movieCast = {};
-  final Map<String, dynamic> _baseParams = {'language': 'es-ES'};
 
   ///Retorna toda la información sobre las peliculas en cartelera
   obtenerPeliculas() async {
     // Uri.parse
     final Response moviesResponse =
         await client.get(Uri.parse('${urlBase}now_playing'), params: {
-      ..._baseParams,
+      ...baseParams,
       ...{'page': '1'}
     });
     final NowPlayingResponse peliculasResponse =
@@ -34,7 +33,7 @@ class MoviesProvider extends ProviderBase {
     // Uri.parse
     final Response popularesReponse =
         await client.get(Uri.parse('${urlBase}popular'), params: {
-      ..._baseParams,
+      ...baseParams,
       ...{'page': _tendenciaPage}
     });
     final PopularResponse peliculasResponse =
