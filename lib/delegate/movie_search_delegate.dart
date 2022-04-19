@@ -8,23 +8,7 @@ import '../routes/routes_screens.dart';
 class MovieSearchDelegate extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
-    const whiteBorder = BorderSide(color: Colors.white);
-    const whiteCursorField = Colors.white;
-    final theme = Theme.of(context).copyWith(
-        textTheme: const TextTheme(
-          headline6: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        textSelectionTheme:
-            const TextSelectionThemeData(cursorColor: whiteCursorField),
-        inputDecorationTheme: const InputDecorationTheme(
-            hintStyle: TextStyle(color: Colors.white),
-            border: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue),
-            ),
-            enabledBorder: UnderlineInputBorder(borderSide: whiteBorder),
-            focusedBorder: UnderlineInputBorder(borderSide: whiteBorder)));
+    final theme = Theme.of(context).copyWith();
     return theme;
   }
 

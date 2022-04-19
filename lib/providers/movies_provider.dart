@@ -11,7 +11,9 @@ class MoviesProvider extends ProviderBase {
   List<Movie> movies = [];
   List<Movie> moviesPopulares = [];
   int _tendenciaPage = 0;
+  final int _maxPopularesPage = 500;
   final Map<int, List<Cast>> _movieCast = {};
+  bool _busy = false;
 
   ///Retorna toda la información sobre las peliculas en cartelera
   obtenerPeliculas() async {
@@ -29,17 +31,22 @@ class MoviesProvider extends ProviderBase {
 
   ///Retorna toda la información sobre las peliculas en populares del nomento
   obtenerPeliculasEnTendencia() async {
+    if (_busy) return;
+    if (_tendenciaPage >= _maxPopularesPage) return;
     _tendenciaPage++;
     // Uri.parse
+    _busy = true;
     final Response popularesReponse =
         await client.get(Uri.parse('${urlBase}popular'), params: {
       ...baseParams,
       ...{'page': _tendenciaPage}
     });
+
     final PopularResponse peliculasResponse =
         PopularResponse.fromJson(popularesReponse.body);
     moviesPopulares = [...moviesPopulares, ...peliculasResponse.results];
     notifyListeners();
+    _busy = false;
   }
 
   ///Con base al id de la pelicula retorna el cast de la pelicula
