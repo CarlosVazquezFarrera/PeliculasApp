@@ -41,10 +41,13 @@ class CardSwiper extends StatelessWidget {
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: FadeInImage(
-                  fit: BoxFit.cover,
-                  placeholder: const AssetImage('assets/loading.gif'),
-                  image: NetworkImage(movies[index].fullposterPath),
+                child: Hero(
+                  tag: movies[index].movieId,
+                  child: FadeInImage(
+                    fit: BoxFit.cover,
+                    placeholder: const AssetImage('assets/loading.gif'),
+                    image: NetworkImage(movies[index].fullposterPath),
+                  ),
                 ),
               ),
             );

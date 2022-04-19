@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'dart:math';
+
 class Movie {
   Movie({
     required this.adult,
@@ -16,7 +18,9 @@ class Movie {
     this.posterPath,
     this.backdropPath,
     this.releaseDate,
-  });
+  }) {
+    movieId = _generateMovieId();
+  }
 
   bool adult;
   List<int> genreIds;
@@ -32,6 +36,7 @@ class Movie {
   String? backdropPath;
   String? posterPath;
   String? releaseDate;
+  String movieId = '';
 
   factory Movie.fromJson(String str) => Movie.fromMap(json.decode(str));
 
@@ -75,8 +80,14 @@ class Movie {
   }
 
   String get fullBackdropPath {
-    return posterPath != null
+    return backdropPath != null
         ? 'https://image.tmdb.org/t/p/w500/$backdropPath'
         : 'https://www.servicioaltoque.online/uploads/services/foo.jpg';
+  }
+
+  String _generateMovieId() {
+    Random random = Random();
+    DateTime now = DateTime.now();
+    return '$id-${random.nextInt(10)}-${now.microsecond}-${now.microsecond}';
   }
 }

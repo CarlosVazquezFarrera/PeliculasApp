@@ -84,12 +84,15 @@ class _Movie extends StatelessWidget {
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: FadeInImage(
-                width: 70,
-                height: 110,
-                fit: BoxFit.cover,
-                placeholder: const AssetImage('assets/loading.gif'),
-                image: NetworkImage(movie.fullposterPath)),
+            child: Hero(
+              tag: movie.movieId,
+              child: FadeInImage(
+                  width: 70,
+                  height: 110,
+                  fit: BoxFit.cover,
+                  placeholder: const AssetImage('assets/loading.gif'),
+                  image: NetworkImage(movie.fullposterPath)),
+            ),
           ),
         ),
         Text(

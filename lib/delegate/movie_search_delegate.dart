@@ -7,6 +7,28 @@ import '../routes/routes_screens.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    const whiteBorder = BorderSide(color: Colors.white);
+    const whiteCursorField = Colors.white;
+    final theme = Theme.of(context).copyWith(
+        textTheme: const TextTheme(
+          headline6: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        textSelectionTheme:
+            const TextSelectionThemeData(cursorColor: whiteCursorField),
+        inputDecorationTheme: const InputDecorationTheme(
+            hintStyle: TextStyle(color: Colors.white),
+            border: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+            enabledBorder: UnderlineInputBorder(borderSide: whiteBorder),
+            focusedBorder: UnderlineInputBorder(borderSide: whiteBorder)));
+    return theme;
+  }
+
+  @override
   String? get searchFieldLabel => 'Buscar';
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -59,11 +81,14 @@ class _MovieItem extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
     return ListTile(
-      leading: FadeInImage(
-        placeholder: const AssetImage('assets/loading.gif'),
-        image: NetworkImage(movie.fullposterPath),
-        height: height * 0.125,
-        fit: BoxFit.contain,
+      leading: Hero(
+        tag: movie.movieId,
+        child: FadeInImage(
+          placeholder: const AssetImage('assets/loading.gif'),
+          image: NetworkImage(movie.fullposterPath),
+          height: height * 0.125,
+          fit: BoxFit.contain,
+        ),
       ),
       title: Text(movie.title),
       onTap: () {
@@ -86,7 +111,8 @@ class _EmptyContainer extends StatelessWidget {
       child: Center(
         child: Icon(
           Icons.movie_creation_outlined,
-          size: witdh * 0.65,
+          size: witdh * 0.5,
+          color: Colors.grey,
         ),
       ),
     );

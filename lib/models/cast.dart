@@ -4,7 +4,6 @@ class Cast {
   Cast({
     required this.id,
     required this.adult,
-    required this.knownForDepartment,
     required this.name,
     required this.originalName,
     required this.popularity,
@@ -13,6 +12,7 @@ class Cast {
     required this.creditId,
     required this.order,
     required this.gender,
+    this.knownForDepartment,
     this.profilePath,
     this.department,
   });
@@ -20,7 +20,7 @@ class Cast {
   bool? adult;
   int gender;
   int id;
-  String knownForDepartment;
+  String? knownForDepartment;
   String name;
   String originalName;
   double popularity;
