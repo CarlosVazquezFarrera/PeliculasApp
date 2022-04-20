@@ -17,6 +17,9 @@ class SearchProvider extends ProviderBase {
   final debouncer =
       Debouncer<String>(duration: const Duration(milliseconds: 5));
 
+  List<Movie> lastResults = [];
+  String lastWordSearched = '';
+
   /// Retorna las peliculas que en el título contentan lo que se ha introducido en el query
 
   Future<List<Movie>> obtenerPeliculas(String query) async {
@@ -29,10 +32,19 @@ class SearchProvider extends ProviderBase {
   }
 
   void getSuggestionByQuery(String searchWord) {
-    debouncer.value = '';
     debouncer.onValue = (value) async {
       if (value.isEmpty) return;
+
+      if (lastWordSearched == value) {
+        _suggestionsStreamController.add(lastResults);
+        return;
+      }
+      print('Fue a buscar');
       final result = await obtenerPeliculas(value);
+
+      lastWordSearched = value;
+      lastResults = result;
+
       _suggestionsStreamController.add(result);
     };
 
