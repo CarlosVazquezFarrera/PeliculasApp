@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:peliculas/helpers/debounder.dart';
 import 'package:peliculas/models/models.dart';
 import 'package:peliculas/models/search_response.dart';
 import 'package:peliculas/providers/provider_base.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 
 class SearchProvider extends ProviderBase {
   SearchProvider() : super('search/');
@@ -13,9 +13,6 @@ class SearchProvider extends ProviderBase {
 
   Stream<List<Movie>> get suggestionStream =>
       _suggestionsStreamController.stream;
-
-  final debouncer =
-      Debouncer<String>(duration: const Duration(milliseconds: 5));
 
   List<Movie> lastResults = [];
   String lastWordSearched = '';
@@ -32,26 +29,17 @@ class SearchProvider extends ProviderBase {
   }
 
   void getSuggestionByQuery(String searchWord) {
-    debouncer.onValue = (value) async {
-      if (value.isEmpty) return;
-
-      if (lastWordSearched == value) {
-        _suggestionsStreamController.add(lastResults);
-        return;
-      }
-      print('Fue a buscar');
-      final result = await obtenerPeliculas(value);
-
-      lastWordSearched = value;
+    if (searchWord.isEmpty) return;
+    if (lastWordSearched == searchWord) {
+      _suggestionsStreamController.add(lastResults);
+      return;
+    }
+    EasyDebounce.debounce('buscarPelis', const Duration(milliseconds: 500),
+        () async {
+      final result = await obtenerPeliculas(searchWord);
+      lastWordSearched = searchWord;
       lastResults = result;
-
       _suggestionsStreamController.add(result);
-    };
-
-    final timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      debouncer.value = searchWord;
     });
-    Future.delayed(const Duration(milliseconds: 501))
-        .then((_) => timer.cancel());
   }
 }

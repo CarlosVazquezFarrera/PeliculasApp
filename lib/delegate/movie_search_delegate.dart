@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:peliculas/models/models.dart';
 import 'package:peliculas/providers/providers.dart';
 import 'package:provider/provider.dart';
-
 import '../routes/routes_screens.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
@@ -40,7 +39,6 @@ class MovieSearchDelegate extends SearchDelegate {
     }
     final SearchProvider moviesProvider =
         Provider.of<SearchProvider>(context, listen: false);
-
     moviesProvider.getSuggestionByQuery(query);
 
     return StreamBuilder(
